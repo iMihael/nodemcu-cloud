@@ -7,7 +7,14 @@ block content
       span(class='input-group-btn')
         button(type='submit', class='btn btn-primary', ng-click='command.send()', ng-disabled='command.disabled').
           Send
-  div(class='col-lg-6')
+  div(class='col-lg-6 ide-editor')
+    input(type="file", class="hidden", id="upload-file" on-read-file="remoteFile.showContent($fileContent, $name)")
+    .btn-group
+      button(type='button', class='btn btn-default', onclick="document.getElementById('upload-file').click();").
+        Upload File
+      button(type='button', class='btn btn-default', ng-click="remoteFile.list()").
+        List Files
+
   .clearfix
 
   div(class='col-lg-6 log-input')

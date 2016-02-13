@@ -8,6 +8,9 @@ html, body {
 .navbar {
     z-index: 500;
 }
+.ide-editor {
+    padding-top:65px;
+}
 .ide-log {
     background-color: #1E3F4A;
     height: 100%;

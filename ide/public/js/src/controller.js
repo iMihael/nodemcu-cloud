@@ -1,6 +1,33 @@
 angular.module('app', [
     'ngResource'
 ])
+    .directive('onReadFile', function ($parse) {
+        return {
+            restrict: 'A',
+            scope: false,
+            link: function(scope, element, attrs) {
+                var fn = $parse(attrs.onReadFile);
+
+
+                element.on('change', function(onChangeEvent) {
+
+                    var file = (onChangeEvent.srcElement || onChangeEvent.target).files[0];
+                    var reader = new FileReader();
+
+                    reader.onload = function(onLoadEvent) {
+                        scope.$apply(function() {
+                            fn(scope, {
+                                $fileContent:onLoadEvent.target.result,
+                                $name: file.name
+                            });
+                        });
+                    };
+
+                    reader.readAsText(file);
+                });
+            }
+        };
+    })
     .directive('myEnter', function () {
         return function (scope, element, attrs) {
             element.bind("keydown keypress", function (event) {
@@ -57,5 +84,19 @@ angular.module('app', [
         if(window.localStorage.getItem('address')) {
             $scope.board.address = window.localStorage.getItem('address');
         }
+
+
+        $scope.remoteFile = {
+            showContent: function(content, fileName){
+                console.log(fileName, content);
+            },
+            list: function(){
+                var cmd = "local l = file.list();for name,size in pairs(l) do printc(name) end";
+                ideService.cmd({}, {
+                    cmd: cmd
+                });
+            }
+        };
+
 
     }]);
