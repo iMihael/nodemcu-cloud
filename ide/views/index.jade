@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  div(class='ide-log col-lg-6')
+    div(class='input-group', id='cmd-input')
+      input(type='text', class='form-control', my-enter='command.send()', ng-disabled='command.disabled', ng-model='command.cmd')
+      span(class='input-group-btn')
+        button(type='submit', class='btn btn-primary', ng-click='command.send()', ng-disabled='command.disabled').
+          Send
+  div(class='col-lg-6')
+  .clearfix
+
+  div(class='col-lg-6 log-input')
+

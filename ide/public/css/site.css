@@ -1,0 +1,30 @@
+html, body {
+    height: 100%;
+}
+.main-container {
+    height: 100%;
+    margin-top:-73px;
+}
+.navbar {
+    z-index: 500;
+}
+.ide-log {
+    background-color: #1E3F4A;
+    height: 100%;
+    color: #DFFF0F;
+
+    padding-top:65px;
+    overflow-y: scroll;
+}
+
+.log-input {
+    /*margin-top:-50px;*/
+}
+
+#cmd-input {
+    margin-bottom: 5px;
+}
+
+.ide-log pre {
+    margin-bottom: 5px;
+}
