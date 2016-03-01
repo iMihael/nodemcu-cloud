@@ -9,9 +9,10 @@ var errorF = function(){};
 
 var client = {
     data: function(data){
-        if(data.toString().indexOf("OK") > 0) {
+        //if(data.toString().indexOf("OK") > 0) {
             dataF(data);
-        }
+        //}
+
     },
     error: function(){
         errorF();
@@ -47,7 +48,12 @@ var client = {
         };
 
         dataF = function(data){
-            io.log(data.toString());
+            if(data.toString().indexOf("ERR") >= 0) {
+                console.log(cmd);
+                io.log(data.toString() + " " + cmd);
+            } else {
+                io.log(data.toString());
+            }
             success();
         };
 

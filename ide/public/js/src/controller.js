@@ -85,10 +85,45 @@ angular.module('app', [
             $scope.board.address = window.localStorage.getItem('address');
         }
 
+        $scope.writeLine = function(){
+            if($scope.fileContent.length > 0) {
+                var line = $scope.fileContent.shift().replace(/["]/g, '\\"');
+
+
+                //if(line.length == 0) {
+                //    $scope.writeLine();
+                //    return;
+                //}
+
+                ideService.cmd({}, {
+                    cmd: 'file.writeline("'+line+'")'
+                }, function(){
+                    $scope.writeLine();
+                });
+            } else {
+                ideService.cmd({}, {
+                    cmd: 'file.close()'
+                }, function(){
+                    $scope.remoteFile.list();
+                });
+            }
+        };
 
         $scope.remoteFile = {
             showContent: function(content, fileName){
-                console.log(fileName, content);
+                //console.log(fileName, content);
+                //return;
+                $scope.fileContent = content.split("\n");
+                //debugger;
+                //ideService.cmd({}, {
+                //    cmd: 'file.remove("'+fileName+'");'
+                //}, function(){
+                        ideService.cmd({}, {
+                            cmd: 'file.open("'+fileName+'", "w+")'
+                        }, function(){
+                            $scope.writeLine();
+                        });
+                //});
             },
             list: function(){
                 var cmd = "local l = file.list();for name,size in pairs(l) do printc(name) end";
