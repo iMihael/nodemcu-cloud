@@ -20,9 +20,7 @@ srv=net.createServer(net.TCP, 3600)
 srv:listen(23,function(conn) 
     client = conn
     conn:on("receive",function(conn,payload) 
-        if pcall(handler, conn, payload) then
-            conn:send("OK\n")
-        else
+        if not pcall(handler, conn, payload) then
             conn:send("ERROR\n")
         end
     end)

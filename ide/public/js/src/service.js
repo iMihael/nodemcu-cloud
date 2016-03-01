@@ -7,6 +7,10 @@ angular.module('app')
             },
             cmd: {
                 method: 'POST',
+                url: '/v1/cmd-no-rsp'
+            },
+            cmdRsp: {
+                method: 'POST',
                 url: '/v1/cmd'
             }
         });

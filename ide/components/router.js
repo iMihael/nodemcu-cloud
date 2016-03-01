@@ -25,10 +25,21 @@ router.post('/v1/connect', function(req, res){
 
 });
 
+router.post('/v1/cmd-no-rsp', function(req, res){
+    net.cmdNoResponse(req.body.cmd);
+    res.status(204);
+    res.end();
+});
+
+
+
 router.post('/v1/cmd', function(req, res){
 
-    net.cmd(req.body.cmd, function(){
-        res.status(204);
+    net.cmd(req.body.cmd, function(data){
+        res.status(200);
+        res.json({
+            data: data
+        });
         res.end();
     }, function(){
         res.status(500);

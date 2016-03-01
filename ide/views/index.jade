@@ -10,12 +10,19 @@ block content
   div(class='col-lg-6 ide-editor')
     input(type="file", class="hidden", id="upload-file" on-read-file="remoteFile.showContent($fileContent, $name)")
     .btn-group
-      button(type='button', class='btn btn-default', onclick="document.getElementById('upload-file').click();").
+      button(type='button', class='btn btn-default', onclick="document.getElementById('upload-file').click();", ng-disabled='command.disabled').
         Upload File
-      button(type='button', class='btn btn-default', ng-click="remoteFile.list()").
+      button(type='button', class='btn btn-default', ng-click="remoteFile.list()", ng-disabled='command.disabled').
         List Files
+      button(type='button', class='btn btn-default', ng-click="remoteFile.show()", ng-disabled='command.disabled').
+        Show File
+      button(type='button', class='btn btn-default', ng-click="remoteFile.remove()", ng-disabled='command.disabled').
+        Remove File
+      button(type='button', class='btn btn-default', ng-click="remoteFile.download()", ng-disabled='command.disabled').
+        Download File
+      button(type='button', class='btn btn-primary', ng-click="remoteFile.saveFile()", ng-disabled='!remoteFile.canSave').
+        Save File
 
-  .clearfix
+    div(id="editor")
 
-  div(class='col-lg-6 log-input')
 

@@ -10,7 +10,6 @@ module.exports = {
         });
     },
     log: function(data) {
-        data = data.toString();
-        io.emit('log', data.substr(0, data.length - 3));
+        io.emit('log', data.toString());
     }
 };

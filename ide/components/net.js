@@ -9,10 +9,7 @@ var errorF = function(){};
 
 var client = {
     data: function(data){
-        //if(data.toString().indexOf("OK") > 0) {
-            dataF(data);
-        //}
-
+        dataF(data);
     },
     error: function(){
         errorF();
@@ -41,20 +38,29 @@ var client = {
             this.write("printc(\"HELLO\");");
         });
     },
+    cmdNoResponse: function(cmd) {
+        dataF = function(data){
+            io.log(data.toString());
+        };
+        errorF = function(){};
 
+        socket.write(cmd);
+    },
     cmd: function(cmd, success, error){
         errorF = function(){
             error();
         };
 
         dataF = function(data){
-            if(data.toString().indexOf("ERR") >= 0) {
+            if(data.toString() == "ERROR\n") {
                 console.log(cmd);
                 io.log(data.toString() + " " + cmd);
+                error();
+                return;
             } else {
                 io.log(data.toString());
             }
-            success();
+            success(data.toString());
         };
 
         socket.write(cmd);
